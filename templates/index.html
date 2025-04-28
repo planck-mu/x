@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Obscura Science</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron&family=Playfair+Display&display=swap');
+
+    body {
+        margin: 0;
+      padding: 0;
+      font-family: 'Playfair Display', serif;
+      background-image: url('/static/x.png'), radial-gradient(circle at top, #111 0%, #000 100%);
+      background-size: cover;
+      background-attachment: fixed;
+      color: #e0f7fa;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 40px;
+      max-width: 900px;
+      margin: 60px auto;
+      border-radius: 12px;
+      box-shadow: 0 0 40px rgba(0,255,255,0.15);
+    }
+    /* Glow Effect for Headings */
+.glow-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5em;
+  color: #00e0ff;
+  text-align: center;
+  animation: glow 2s infinite alternate;
+  margin-top: 60px;
+}
+
+.glow-small {
+  color: #00e0ff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.6em;
+  margin-top: 40px;
+}
+
+/* Animate Glow */
+@keyframes glow {
+  from { text-shadow: 0 0 10px #00e0ff88, 0 0 20px #00e0ff44; }
+  to { text-shadow: 0 0 20px #00e0ff, 0 0 30px #00ffff; }
+}
+
+/* Fade-in Section on Scroll */
+.fade-section {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1.2s ease-out;
+}
+
+/* Hover list items */
+.hover-list li {
+  margin: 10px 0;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.hover-list li:hover {
+  transform: translateX(10px);
+  color: #00ffff;
+}
+
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3em;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8em;
+      color: #00e0ff;
+      margin-top: 40px;
+    }
+
+    p, li {
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+
+    blockquote {
+      font-style: italic;
+      margin: 20px 0;
+      padding-left: 20px;
+      border-left: 3px solid #00e0ff;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul li::before {
+      content: '✦';
+      margin-right: 10px;
+      color: #00e0ff;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #aaa;
+    }
+
+    .input-section {
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 8px;
+      width: 250px;
+      background-color: #111;
+      color: #00e0ff;
+      box-shadow: 0 0 10px #00e0ff33;
+    }
+
+    button {
+      margin-left: 10px;
+      padding: 10px 20px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 8px;
+      background-color: #00e0ff;
+      color: #000;
+      cursor: pointer;
+      box-shadow: 0 0 15px #00e0ff66;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌌 Welcome to Obscura Science</h1>
+    <p><strong>Exploring the Unseen, Uncelebrated, and Unimaginable</strong></p>
+    <p>At Obscura Science, we dive deep into the frontiers of space, the wonders of science, and the forgotten geniuses who helped build the universe we live in—yet never made it to the spotlight.</p>
+
+    <h2>🚀 Space: Beyond the Horizon</h2>
+<p>Since the dawn of humanity, we have looked up and wondered: What's out there? Obscura Science takes you beyond Earth, into the unimaginable depths of the cosmos, to explore mysteries still unfolding.</p>
+
+<h3>🌌 The Birth of the Universe</h3>
+<p>It all began 13.8 billion years ago with the Big Bang — a moment of infinite density, infinite heat, and infinite possibility. In a fraction of a second, the universe expanded faster than light itself in an event known as cosmic inflation. Space-time, matter, and energy were born in that instant. Today, the faint whisper of that beginning — the Cosmic Microwave Background — still hums across the cosmos.</p>
+
+<h3>🛰️ Mapping the Unseen</h3>
+<p>Beyond the shimmering galaxies we can see lies something more mysterious: <strong>dark matter</strong> and <strong>dark energy</strong>, invisible forces that shape the fate of the universe. Scientists believe that ordinary matter — everything we've ever seen — makes up less than 5% of the universe. The rest? A silent, unseen majority we are just beginning to understand.</p>
+
+<h3>🚀 Space Exploration: The New Age</h3>
+<ul>
+  <li><strong>James Webb Space Telescope</strong>: Piercing the veil of time, glimpsing galaxies from the early universe.</li>
+  <li><strong>Mars Missions</strong>: Perseverance rover searches for signs of ancient life. Human missions are on the horizon.</li>
+  <li><strong>Private Space Travel</strong>: Companies like SpaceX and Blue Origin are reshaping how humans think about the final frontier.</li>
+  <li><strong>The Artemis Program</strong>: Returning humans to the Moon — and using it as a stepping stone to Mars.</li>
+</ul>
+
+<h3>🛸 Mind-Bending Concepts</h3>
+<p>Science fiction or future science?</p>
+<ul>
+  <li><strong>Wormholes</strong>: Hypothetical tunnels connecting distant parts of the universe instantly.</li>
+  <li><strong>White Holes</strong>: Theoretical "reverse" black holes, where matter explodes outward.</li>
+  <li><strong>Multiverse</strong>: The daring idea that our universe might be just one of many, each with different laws of physics.</li>
+</ul>
+
+<blockquote>"Not only is the universe stranger than we imagine, it is stranger than we can imagine." — J.B.S. Haldane</blockquote>
+
+<h3>❓ Mysteries Yet Unsolved</h3>
+<ul>
+  <li><strong>Dark Energy</strong>: The mysterious force accelerating the expansion of the universe — why?</li>
+  <li><strong>Fermi Paradox</strong>: If the universe is so vast and old, where are the extraterrestrials?</li>
+  <li><strong>Cosmic Inflation</strong>: What triggered the unimaginable expansion just after the Big Bang?</li>
+</ul>
+
+<p>At Obscura Science, we don't just chase answers. We chase better questions. Every revelation about the cosmos deepens the mystery — and that's exactly why we explore.</p>
+
+ 
+<section id="hidden-forces" class="fade-section">
+  <h2 class="glow-text">🪐 Hidden Forces: Gravitational Waves, Quantum Foam, and Cosmic Strings</h2>
+
+  <p>Beyond the stars we see, the universe is alive with invisible phenomena, bending, shaking, and weaving the very fabric of space-time itself. Obscura Science uncovers these hidden realities that defy ordinary understanding.</p>
+
+  <h3 class="glow-small">🌊 Gravitational Waves: Echoes of Collisions</h3>
+  <p>When two black holes merge or massive stars collide, they send ripples through space-time — <strong>gravitational waves</strong>. First predicted by Einstein, they were detected only in 2015 by LIGO, opening a new way of observing the universe without light.</p>
+  <ul class="hover-list">
+    <li>Stretching and squeezing space itself across billions of years.</li>
+    <li>"Hearing" cataclysmic events using gravitational detectors.</li>
+    <li>LISA mission will soon detect waves from the birth of galaxies.</li>
+  </ul>
+
+  <h3 class="glow-small">⚛️ Quantum Foam: Space-Time at its Smallest</h3>
+  <p>At unimaginable tiny scales, space is a boiling quantum sea. Particles appear and vanish instantly in what's known as <strong>quantum foam</strong>.</p>
+  <blockquote>At Planck lengths (~10<sup>-35</sup> m), spacetime isn’t smooth — it’s a chaotic ocean of uncertainty.</blockquote>
+  <ul class="hover-list">
+    <li>Birthplace of virtual particles and mini black holes.</li>
+    <li>Possibly the hidden engine of cosmic expansion.</li>
+  </ul>
+
+  <h3 class="glow-small">🧵 Cosmic Strings: Relics of Creation</h3>
+  <p>Imagine infinitely thin, massively heavy cracks left over from the Big Bang — these are <strong>cosmic strings</strong>.</p>
+  <ul class="hover-list">
+    <li>Could bend light, warp space, or even be used for time travel.</li>
+    <li>Hunting them could reveal hidden dimensions.</li>
+  </ul>
+
+  <h3 class="glow-small">🛸 Beyond the Known: Exotic Structures</h3>
+  <ul class="hover-list">
+    <li><strong>Boson Stars</strong>: Ghostly stellar objects made of force fields.</li>
+    <li><strong>Q-Balls</strong>: Exotic matter clumps that may be hiding dark matter.</li>
+    <li><strong>Primordial Black Holes</strong>: Tiny black holes from the dawn of time.</li>
+  </ul>
+
+  <blockquote>“Not only is reality stranger than we imagine, it is stranger than we CAN imagine.” — J.B.S. Haldane</blockquote>
+
+  <p>The hidden universe hums and twists with forces beyond sight. Our quest is to hear, see, and feel these invisible symphonies — and perhaps, someday, master them.</p>
+
+  <h2>🌌 Cosmic Origins: The Dawn of the Universe</h2>
+  <p>The universe’s origins remain one of the greatest mysteries in science. The **Big Bang Theory** suggests that the universe began from a single point approximately **13.8 billion years ago**. This explosion created all the matter and energy that eventually formed stars, galaxies, and the planets. But could our universe be just one of many? The concept of the **multiverse** proposes an infinite number of universes with potentially different physical laws.</p>
+  
+  <h2>🧬 Astrobiology: Life Beyond Earth</h2>
+  <p>Astrobiology is the study of life in the universe, particularly the potential for life beyond Earth. Scientists are exploring extreme environments on Earth—like **deep-sea vents** and **acidic lakes**—to understand how life might survive on other planets. The discovery of **extremophiles**, organisms that thrive in harsh conditions, suggests that life could exist on planets with environments vastly different from our own.</p>
+  
+  <h2>🪐 The Enigma of Black Holes</h2>
+  <p>Black holes are regions in space where gravity is so intense that not even light can escape. At their core lies the **singularity**, a point of infinite density. The study of black holes is reshaping our understanding of gravity, space, and time. Recent discoveries, including the **Event Horizon Telescope's image** of a black hole in the galaxy M87, are providing new insights into the nature of these cosmic giants.</p>
+  
+  <h2>🌟 Quantum Mechanics: The Bizarre Nature of Reality</h2>
+  <p>Quantum mechanics describes the behavior of particles on the smallest scales. At this scale, particles exist in multiple states at once (superposition) and can be **entangled**, meaning the state of one particle instantaneously affects the state of another, even at vast distances. These bizarre phenomena challenge our classical understanding of reality and form the basis of technologies such as **quantum computing** and **quantum encryption**.</p>
+  
+  <h2>💫 The Expanding Universe and Dark Energy</h2>
+  <p>Since the 1920s, scientists have known that the universe is expanding, but recent research suggests that this expansion is accelerating due to a mysterious force called **dark energy**. Dark energy is believed to make up about 68% of the universe’s total energy content, yet we know very little about it. This discovery raises profound questions about the fate of the universe: will it continue to expand forever, or will it eventually collapse back in on itself in a "Big Crunch"?</p>
+  
+  <h2>🧪 The Search for Extraterrestrial Life</h2>
+  <p>Scientists have long wondered whether life exists elsewhere in the universe. The **Drake Equation** attempts to estimate the number of extraterrestrial civilizations in our galaxy. In recent years, the discovery of **exoplanets**—planets that orbit stars outside our solar system—has reignited the search. Some of these exoplanets lie in the **habitable zone**, the region around a star where conditions may support liquid water, a key ingredient for life.</p>
+  
+  <h2>🔭 Space Exploration: Pushing the Boundaries</h2>
+  <p>The next frontier in space exploration is the human mission to **Mars**. NASA, **SpaceX**, and other organizations are planning missions to send humans to the Red Planet. These missions aim to not only explore Mars but also to establish a sustainable human presence. However, these missions face numerous challenges, including space radiation, life support, and creating habitats that can withstand the harsh Martian environment.</p>
+  
+  <h2>⚛️ Emerging Technologies: The Future of Innovation</h2>
+  <p>On Earth, **emerging technologies** are rapidly changing the way we live. **Nanotechnology** is enabling the development of materials that are stronger and lighter than ever before. **Artificial intelligence (AI)** is revolutionizing industries, from healthcare to transportation. Meanwhile, **quantum computing** promises to solve problems that classical computers cannot, such as simulating the behavior of complex molecules for drug development or optimizing logistics for large systems.</p>
+  
+  <h2>🌍 The Role of DNA in Understanding the Cosmos</h2>
+  <p>DNA, the molecule that carries the genetic code for life, may also offer insights into the universe. The same elements that form the building blocks of life—**carbon**, **nitrogen**, **oxygen**, and **phosphorus**—are found in stars and other celestial bodies. This raises the question: Could the processes that formed life on Earth be occurring elsewhere in the universe? Could life beyond Earth be based on the same principles that guide our biology?</p>
+  
+  <h2>🚀 The Future of Human Space Travel</h2>
+  <p>In the coming decades, human space travel will evolve in ways we can barely imagine today. New propulsion technologies, such as **nuclear fusion**, could allow us to travel to distant stars within a human lifetime. Projects like **Breakthrough Starshot** aim to send small probes to the nearest star system, **Alpha Centauri**, at a fraction of the speed of light. Such missions could provide humanity with the first tangible evidence of life beyond our solar system.</p>
+  
+  <h2>🔬 Revolutionizing Healthcare with Space Technology</h2>
+  <p>The technologies developed for space exploration often find applications on Earth. **3D printing**, developed for use in space missions, is now being used in healthcare to create prosthetics and implants. Similarly, the study of **astronaut health** is helping scientists understand the effects of prolonged space travel on the human body, leading to new treatments for diseases related to aging, bone density loss, and muscle atrophy.</p>
+  
+  <h2>🌑 The Power of Collaboration in Science</h2>
+  <p>One of the most exciting aspects of modern science is the **global collaboration** that drives discoveries. Space missions, for instance, are rarely the work of a single country. Instead, nations across the world work together, pooling resources, knowledge, and technology to achieve common goals. This spirit of cooperation is essential for tackling the most significant challenges facing humanity, from climate change to global health crises.</p>
+  </section>
+
+<h3>🔭 Your Journey Awaits</h3>
+<p>Keep looking up. The universe has only just begun to tell its story.</p>
+
+
+  <form action="/validate" method="POST">
+      <input type="text" id="username" name="username" placeholder="Enter your name" required>
+      <button type="submit">Enter</button>
+    </form>
+    
+      
+  <div class="footer">© 2025 Obscura Science | Built for the curious minds in the shadows</div>
+
+  <!-- Hidden Base64 JavaScript -->
+  <script>
+    // Fade in effect when scrolling
+    window.addEventListener('scroll', () => {
+      document.querySelectorAll('.fade-section').forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          section.style.opacity = 1;
+          section.style.transform = 'translateY(0)';
+        }
+      });
+    });
+  </script>
+    });
+  </script>
+  <script src="data:text/javascript;base64,dGVzdC5jb250ZXh0aW1lID0gZnVuY3Rpb24oKSB7IHZhcjsgfQ=="></script>
+  <script src="data:text/javascript;base64,dGVzdC5jb250ZXh0aW1lID0gZnVuY3Rpb24oKSB7IHZhcjsgfQ==
+    </script>
+  </body>
+</html>
