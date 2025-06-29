@@ -1,0 +1,1946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Horizons | Science Forum & Knowledge Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/inter-ui@3.19.3/inter.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3a86ff;
+            --secondary-color: #8338ec;
+            --accent-color: #ff006e;
+            --text-color: #2b2d42;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --header-bg: #ffffff;
+            --footer-bg: #2b2d42;
+            --footer-text: #f8f9fa;
+            --border-color: #e9ecef;
+            --nav-hover: #e9ecef;
+        }
+
+        .dark-mode {
+            --primary-color: #4cc9f0;
+            --secondary-color: #7209b7;
+            --accent-color: #f72585;
+            --text-color: #e9ecef;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --header-bg: #1a1a1a;
+            --footer-bg: #0a0a0a;
+            --footer-text: #f8f9fa;
+            --border-color: #2d3748;
+            --nav-hover: #2d3748;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .active-section {
+            display: block;
+        }
+
+        .nav-link {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: #fff;
+        }
+
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            border-radius: 15px;
+            background-color: var(--bg-color);
+            cursor: pointer;
+            padding: 2px;
+            transition: background-color 0.3s ease;
+            border: 2px solid var(--border-color);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .dark-mode .toggle-slider {
+            transform: translateX(30px);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+        }
+
+        .book-cover {
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .forum-post {
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .tag {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+        }
+
+        .event-date {
+            background-color: var(--secondary-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        /* Animation for section transitions */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            .nav-links {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero-content {
+                text-align: center;
+            }
+        }
+
+        /* Star animation in hero background */
+        .star-field {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.2; }
+        }
+
+        .forum-category {
+            transition: background-color 0.3s ease;
+        }
+        
+        .forum-category:hover {
+            background-color: var(--nav-hover);
+        }
+
+        .profile-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 0.8rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .book-rating {
+            color: #ffd700;
+        }
+
+        .quote-box {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1rem;
+            font-style: italic;
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header and Navigation -->
+    <header class="sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center nav-container">
+                <div class="flex items-center">
+                    <i class="fas fa-globe-americas text-3xl mr-2" style="color: var(--primary-color)"></i>
+                    <h1 class="text-xl font-bold">Cosmic Horizons</h1>
+                </div>
+                
+                <nav class="flex items-center nav-links">
+                    <a class="nav-link mx-3 py-2 active" data-page="home">Home</a>
+                    <a class="nav-link mx-3 py-2" data-page="articles">Articles</a>
+                    <a class="nav-link mx-3 py-2" data-page="books">Scientific Books</a>
+                    <a class="nav-link mx-3 py-2" data-page="forum">Forum</a>
+                    <a class="nav-link mx-3 py-2" data-page="profile">Profile</a>
+                    <a class="nav-link mx-3 py-2" data-page="about">About</a>
+                    
+                    <div class="theme-toggle ml-4" id="themeToggle">
+                        <div class="toggle-slider">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- HOME PAGE SECTION -->
+    <section id="home" class="page-section active-section">
+        <!-- Hero Banner -->
+        <div class="relative hero-section py-20">
+            <div class="star-field" id="starField"></div>
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="md:flex items-center">
+                    <div class="md:w-1/2 hero-content">
+                        <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover the Universe</h1>
+                        <p class="text-xl mb-6">Join our community of science enthusiasts exploring the cosmos, quantum physics, and beyond.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <button class="btn-primary px-6 py-3 rounded-lg font-medium">Join Community</button>
+                            <button class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-gray-800 transition-all">Learn More</button>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 mt-8 md:mt-0 flex justify-center">
+                        <div class="relative w-72 h-72 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                            <i class="fas fa-rocket text-7xl text-white transform -rotate-45"></i>
+                            <div class="absolute w-full h-full rounded-full border-4 border-white border-opacity-20 animate-ping" style="animation-duration: 3s;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Content -->
+        <div class="py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold mb-2">Featured Content</h2>
+                <p class="text-lg mb-8">The latest discoveries and discussions from our community</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Featured Article 1 -->
+                    <div class="card p-6">
+                        <span class="tag mb-4">Astrophysics</span>
+                        <h3 class="text-xl font-bold mb-3">Black Holes: Gateways to Other Universes?</h3>
+                        <p class="mb-4">New research suggests that black holes might be more than just dead ends in spacetime, potentially connecting to other universes...</p>
+                        <div class="flex items-center mb-4">
+                            <div class="user-avatar mr-3">JD</div>
+                            <div>
+                                <p class="font-medium">Dr. Jane Donovan</p>
+                                <p class="text-sm opacity-70">Posted 2 days ago</p>
+                            </div>
+                        </div>
+                        <button class="btn-primary px-4 py-2 rounded-lg text-sm">Read Article</button>
+                    </div>
+
+                    <!-- Featured Article 2 -->
+                    <div class="card p-6">
+                        <span class="tag mb-4">Quantum Physics</span>
+                        <h3 class="text-xl font-bold mb-3">Quantum Entanglement Demonstrated at Macro Scale</h3>
+                        <p class="mb-4">Scientists have successfully demonstrated quantum entanglement effects with objects visible to the naked eye, challenging our understanding...</p>
+                        <div class="flex items-center mb-4">
+                            <div class="user-avatar mr-3">MK</div>
+                            <div>
+                                <p class="font-medium">Prof. Michio Kato</p>
+                                <p class="text-sm opacity-70">Posted 5 days ago</p>
+                            </div>
+                        </div>
+                        <button class="btn-primary px-4 py-2 rounded-lg text-sm">Read Article</button>
+                    </div>
+
+                    <!-- Featured Forum Discussion -->
+                    <div class="card p-6">
+                        <span class="tag mb-4" style="background-color: var(--accent-color)">Hot Discussion</span>
+                        <h3 class="text-xl font-bold mb-3">The Possibility of Life on Europa</h3>
+                        <p class="mb-4">Join the ongoing debate about potential life forms beneath the icy surface of Jupiter's moon and the upcoming mission...</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center">
+                                <div class="user-avatar mr-3">AL</div>
+                                <p class="font-medium">AstroLover42</p>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="far fa-comment mr-1"></i>
+                                <span>86</span>
+                            </div>
+                        </div>
+                        <button class="btn-primary px-4 py-2 rounded-lg text-sm">Join Discussion</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div style="background-color: var(--card-bg);" class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div class="p-4">
+                        <div class="text-4xl font-bold mb-2" style="color: var(--primary-color)">12K+</div>
+                        <p class="text-lg">Community Members</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-4xl font-bold mb-2" style="color: var(--secondary-color)">850+</div>
+                        <p class="text-lg">Scientific Articles</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-4xl font-bold mb-2" style="color: var(--accent-color)">5.2K</div>
+                        <p class="text-lg">Discussion Threads</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-4xl font-bold mb-2" style="color: var(--primary-color)">125</div>
+                        <p class="text-lg">Expert Contributors</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="max-w-2xl mx-auto text-center">
+                    <h2 class="text-3xl font-bold mb-4">Stay Updated</h2>
+                    <p class="mb-6">Subscribe to our newsletter for the latest discoveries, articles, and forum discussions.</p>
+                    <div class="flex flex-col md:flex-row gap-3 justify-center">
+                        <input type="email" placeholder="Your email address" class="px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500 flex-grow max-w-xs" style="background-color: var(--card-bg); color: var(--text-color); border-color: var(--border-color)">
+                        <button class="btn-primary px-6 py-3 rounded-lg font-medium">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARTICLES PAGE SECTION -->
+    <section id="articles" class="page-section">
+        <div class="py-12">
+            <div class="container mx-auto px-4">
+                <h1 class="text-4xl font-bold mb-2">Scientific Articles</h1>
+                <p class="text-xl mb-8">Explore cutting-edge research and scientific discoveries</p>
+
+                <!-- Category Filter -->
+                <div class="flex flex-wrap gap-3 mb-8">
+                    <button class="px-4 py-2 rounded-lg font-medium btn-primary">All Categories</button>
+                    <button class="px-4 py-2 rounded-lg font-medium" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">Astrophysics</button>
+                    <button class="px-4 py-2 rounded-lg font-medium" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">Quantum Physics</button>
+                    <button class="px-4 py-2 rounded-lg font-medium" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">Biology</button>
+                    <button class="px-4 py-2 rounded-lg font-medium" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">Climatology</button>
+                    <button class="px-4 py-2 rounded-lg font-medium" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">Neuroscience</button>
+                </div>
+
+                <!-- Featured Article -->
+                <div class="card p-6 mb-12">
+                    <div class="md:flex">
+                        <div class="md:w-1/3 mb-6 md:mb-0 md:pr-6">
+                            <div class="aspect-w-16 aspect-h-9 bg-gray-200 rounded-lg overflow-hidden" style="background-color: #3a86ff;">
+                                <div class="w-full h-full flex items-center justify-center">
+                                    <i class="fas fa-atom text-8xl text-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:w-2/3">
+                            <span class="tag mb-3">Featured</span>
+                            <h2 class="text-2xl font-bold mb-3">The Search for Dark Matter: New Breakthroughs</h2>
+                            <p class="mb-4">Recent observations from the Large Hadron Collider have provided new insights into the elusive nature of dark matter. Scientists believe they may have detected subtle signals that could finally help identify what comprises the mysterious substance making up 27% of the universe.</p>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center">
+                                    <div class="user-avatar mr-3">EW</div>
+                                    <div>
+                                        <p class="font-medium">Dr. Elena Whitmore</p>
+                                        <p class="text-sm opacity-70">CERN Research Lead</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center text-sm">
+                                    <i class="far fa-calendar mr-1"></i>
+                                    <span>October 15, 2023</span>
+                                    <i class="far fa-eye ml-4 mr-1"></i>
+                                    <span>2.4K</span>
+                                </div>
+                            </div>
+                            <button class="btn-primary px-6 py-3 rounded-lg font-medium">Read Full Article</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Articles Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Article 1 -->
+                    <div class="card overflow-hidden">
+                        <div class="h-48 bg-blue-500 flex items-center justify-center">
+                            <i class="fas fa-satellite text-6xl text-white"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="tag mb-3">Astrophysics</span>
+                            <h3 class="text-xl font-bold mb-2">James Webb Telescope Reveals Ancient Galaxy Structures</h3>
+                            <p class="mb-4 text-sm">The James Webb Space Telescope has captured images of galaxy formations dating back nearly 13 billion years, challenging existing models of early universe development.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm opacity-70">October 12, 2023</span>
+                                <button class="px-3 py-1 rounded text-sm" style="background-color: var(--primary-color); color: white;">Read More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article 2 -->
+                    <div class="card overflow-hidden">
+                        <div class="h-48 bg-purple-600 flex items-center justify-center">
+                            <i class="fas fa-dna text-6xl text-white"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="tag mb-3">Biology</span>
+                            <h3 class="text-xl font-bold mb-2">CRISPR Advances: New Gene Editing Precision Records</h3>
+                            <p class="mb-4 text-sm">Researchers have developed a new CRISPR technique that reduces off-target effects by 99.8%, opening doors for safer gene therapy treatments for genetic disorders.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm opacity-70">October 8, 2023</span>
+                                <button class="px-3 py-1 rounded text-sm" style="background-color: var(--primary-color); color: white;">Read More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article 3 -->
+                    <div class="card overflow-hidden">
+                        <div class="h-48 bg-pink-600 flex items-center justify-center">
+                            <i class="fas fa-brain text-6xl text-white"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="tag mb-3">Neuroscience</span>
+                            <h3 class="text-xl font-bold mb-2">Brain-Computer Interface Achieves New Milestone</h3>
+                            <p class="mb-4 text-sm">A paralyzed patient successfully controlled a robotic arm with 97% accuracy using only their thoughts, thanks to a new non-invasive neural interface technology.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm opacity-70">October 5, 2023</span>
+                                <button class="px-3 py-1 rounded text-sm" style="background-color: var(--primary-color); color: white;">Read More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article 4 -->
+                    <div class="card overflow-hidden">
+                        <div class="h-48 bg-green-600 flex items-center justify-center">
+                            <i class="fas fa-cloud-sun text-6xl text-white"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="tag mb-3">Climatology</span>
+                            <h3 class="text-xl font-bold mb-2">Arctic Ice Regeneration Method Shows Promise</h3>
+                            <p class="mb-4 text-sm">Scientists have successfully tested a new method for reflecting solar radiation in small Arctic areas, potentially slowing ice melt in crucial regions.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm opacity-70">October 2, 2023</span>
+                                <button class="px-3 py-1 rounded text-sm" style="background-color: var(--primary-color); color: white;">Read More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article 5 -->
+                    <div class="card overflow-hidden">
+                        <div class="h-48 bg-yellow-500 flex items-center justify-center">
+                            <i class="fas fa-microchip text-6xl text-white"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="tag mb-3">Quantum Physics</span>
+                            <h3 class="text-xl font-bold mb-2">Room-Temperature Quantum Computing Breakthrough</h3>
+                            <p class="mb-4 text-sm">Researchers have developed quantum bits that maintain coherence at room temperature for up to 10 minutes, removing a major obstacle to practical quantum computing.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm opacity-70">September 28, 2023</span>
+                                <button class="px-3 py-1 rounded text-sm" style="background-color: var(--primary-color); color: white;">Read More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article 6 -->
+                    <div class="card overflow-hidden">
+                        <div class="h-48 bg-red-600 flex items-center justify-center">
+                            <i class="fas fa-rocket text-6xl text-white"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="tag mb-3">Space Exploration</span>
+                            <h3 class="text-xl font-bold mb-2">Nuclear Propulsion Makes Interplanetary Travel Feasible</h3>
+                            <p class="mb-4 text-sm">NASA and private industry partners have successfully tested a nuclear thermal propulsion system that could reduce travel time to Mars by 60%.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm opacity-70">September 25, 2023</span>
+                                <button class="px-3 py-1 rounded text-sm" style="background-color: var(--primary-color); color: white;">Read More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex justify-center mt-12">
+                    <nav class="flex items-center space-x-2">
+                        <a class="px-4 py-2 rounded-lg" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">Previous</a>
+                        <a class="px-4 py-2 rounded-lg font-medium btn-primary">1</a>
+                        <a class="px-4 py-2 rounded-lg" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">2</a>
+                        <a class="px-4 py-2 rounded-lg" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">3</a>
+                        <span class="px-2">...</span>
+                        <a class="px-4 py-2 rounded-lg" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">12</a>
+                        <a class="px-4 py-2 rounded-lg" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">Next</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCIENTIFIC BOOKS SECTION -->
+    <section id="books" class="page-section">
+        <div class="py-12">
+            <div class="container mx-auto px-4">
+                <h1 class="text-4xl font-bold mb-2">Scientific Books</h1>
+                <p class="text-xl mb-8">Explore our curated collection of essential scientific literature</p>
+
+                <!-- Book Categories -->
+                <div class="flex flex-wrap gap-3 mb-8">
+                    <button class="px-4 py-2 rounded-lg font-medium btn-primary">All Books</button>
+                    <button class="px-4 py-2 rounded-lg font-medium" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">Physics</button>
+                    <button class="px-4 py-2 rounded-lg font-medium" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">Astronomy</button>
+                    <button class="px-4 py-2 rounded-lg font-medium" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">Mathematics</button>
+                    <button class="px-4 py-2 rounded-lg font-medium" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">Biology</button>
+                    <button class="px-4 py-2 rounded-lg font-medium" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">Chemistry</button>
+                </div>
+
+                <!-- Featured Book -->
+                <div class="card p-6 mb-12">
+                    <div class="md:flex">
+                        <div class="md:w-1/4 mb-6 md:mb-0 flex justify-center">
+                            <div class="w-48 h-64 bg-blue-900 rounded-lg flex items-center justify-center shadow-lg">
+                                <div class="text-center p-4">
+                                    <i class="fas fa-book text-4xl text-white mb-3"></i>
+                                    <h4 class="text-white font-bold">A Brief History of Time</h4>
+                                    <p class="text-white text-sm mt-2">Stephen Hawking</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:w-3/4 md:pl-6">
+                            <span class="tag mb-3">Book of the Month</span>
+                            <h2 class="text-2xl font-bold mb-2">A Brief History of Time</h2>
+                            <h3 class="text-lg mb-3">By Stephen Hawking</h3>
+                            
+                            <div class="flex mb-4 book-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="ml-2" style="color: var(--text-color)">4.5/5 (1,283 reviews)</span>
+                            </div>
+                            
+                            <p class="mb-4">In this landmark volume, Stephen Hawking explains to the general reader the principles that have governed our universe since the dawn of time and the scientific work that made these principles known to us. Covering both the history of scientific thought and the current state of cosmology and physics, Hawking examines the nature of time, the expanding universe, black holes, the big bang, and much more in accessible language.</p>
+                            
+                            <div class="quote-box mb-4">
+                                "Even if there is only one possible unified theory, it is just a set of rules and equations. What is it that breathes fire into the equations and makes a universe for them to describe?"
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-3 mb-6">
+                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">Cosmology</span>
+                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">Physics</span>
+                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">Black Holes</span>
+                                <span class="px-3 py-1 rounded-full text-sm" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">Time</span>
+                            </div>
+                            
+                            <button class="btn-primary px-6 py-2 rounded-lg font-medium">Read Summary</button>
+                            <button class="ml-3 px-6 py-2 rounded-lg font-medium" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">
+                                <i class="fas fa-bookmark mr-2"></i> Add to Reading List
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Books Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    <!-- Book 1 -->
+                    <div class="card p-5">
+                        <div class="bg-indigo-800 rounded-lg flex items-center justify-center mb-4 book-cover">
+                            <div class="text-center p-4">
+                                <i class="fas fa-rocket text-3xl text-white mb-2"></i>
+                                <h4 class="text-white font-bold">Cosmos</h4>
+                                <p class="text-white text-sm">Carl Sagan</p>
+                            </div>
+                        </div>
+                        <h3 class="font-bold mb-1">Cosmos</h3>
+                        <p class="text-sm mb-2">By Carl Sagan</p>
+                        <div class="flex mb-2 book-rating text-sm">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span class="ml-1" style="color: var(--text-color)">5.0</span>
+                        </div>
+                        <p class="text-sm mb-3">A journey through the cosmos that explores the universe and humanity's place within it, from one of astronomy's greatest ambassadors.</p>
+                        <button class="w-full py-2 rounded-lg text-sm btn-primary">View Details</button>
+                    </div>
+
+                    <!-- Book 2 -->
+                    <div class="card p-5">
+                        <div class="bg-green-800 rounded-lg flex items-center justify-center mb-4 book-cover">
+                            <div class="text-center p-4">
+                                <i class="fas fa-dna text-3xl text-white mb-2"></i>
+                                <h4 class="text-white font-bold">The Selfish Gene</h4>
+                                <p class="text-white text-sm">Richard Dawkins</p>
+                            </div>
+                        </div>
+                        <h3 class="font-bold mb-1">The Selfish Gene</h3>
+                        <p class="text-sm mb-2">By Richard Dawkins</p>
+                        <div class="flex mb-2 book-rating text-sm">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span class="ml-1" style="color: var(--text-color)">4.0</span>
+                        </div>
+                        <p class="text-sm mb-3">A landmark work that revolutionized our understanding of evolution by focusing on how genes act selfishly for their own replication.</p>
+                        <button class="w-full py-2 rounded-lg text-sm btn-primary">View Details</button>
+                    </div>
+
+                    <!-- Book 3 -->
+                    <div class="card p-5">
+                        <div class="bg-purple-800 rounded-lg flex items-center justify-center mb-4 book-cover">
+                            <div class="text-center p-4">
+                                <i class="fas fa-atom text-3xl text-white mb-2"></i>
+                                <h4 class="text-white font-bold">QED</h4>
+                                <p class="text-white text-sm">Richard Feynman</p>
+                            </div>
+                        </div>
+                        <h3 class="font-bold mb-1">QED: The Strange Theory of Light and Matter</h3>
+                        <p class="text-sm mb-2">By Richard Feynman</p>
+                        <div class="flex mb-2 book-rating text-sm">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span class="ml-1" style="color: var(--text-color)">4.5</span>
+                        </div>
+                        <p class="text-sm mb-3">A masterful explanation of quantum electrodynamics for the general reader from one of the greatest physics teachers.</p>
+                        <button class="w-full py-2 rounded-lg text-sm btn-primary">View Details</button>
+                    </div>
+
+                    <!-- Book 4 -->
+                    <div class="card p-5">
+                        <div class="bg-red-800 rounded-lg flex items-center justify-center mb-4 book-cover">
+                            <div class="text-center p-4">
+                                <i class="fas fa-brain text-3xl text-white mb-2"></i>
+                                <h4 class="text-white font-bold">The Man Who Mistook His Wife for a Hat</h4>
+                                <p class="text-white text-sm">Oliver Sacks</p>
+                            </div>
+                        </div>
+                        <h3 class="font-bold mb-1">The Man Who Mistook His Wife for a Hat</h3>
+                        <p class="text-sm mb-2">By Oliver Sacks</p>
+                        <div class="flex mb-2 book-rating text-sm">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span class="ml-1" style="color: var(--text-color)">4.8</span>
+                        </div>
+                        <p class="text-sm mb-3">Case studies of patients with neurological disorders that illuminate the mysteries of the human brain and consciousness.</p>
+                        <button class="w-full py-2 rounded-lg text-sm btn-primary">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Recent Publications -->
+                <h2 class="text-2xl font-bold mb-6">Recent Publications</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Recent Book 1 -->
+                    <div class="card p-5">
+                        <div class="flex">
+                            <div class="w-1/3">
+                                <div class="bg-blue-700 rounded-lg h-32 flex items-center justify-center">
+                                    <i class="fas fa-microscope text-2xl text-white"></i>
+                                </div>
+                            </div>
+                            <div class="w-2/3 pl-4">
+                                <h3 class="font-bold text-sm mb-1">The Hidden Universe: Dark Matter, Dark Energy, and the Future of Cosmology</h3>
+                                <p class="text-xs mb-2">By Dr. Lisa Randall</p>
+                                <div class="flex mb-2 book-rating text-xs">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <button class="w-full py-1 rounded-lg text-xs btn-primary">Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Book 2 -->
+                    <div class="card p-5">
+                        <div class="flex">
+                            <div class="w-1/3">
+                                <div class="bg-teal-700 rounded-lg h-32 flex items-center justify-center">
+                                    <i class="fas fa-virus text-2xl text-white"></i>
+                                </div>
+                            </div>
+                            <div class="w-2/3 pl-4">
+                                <h3 class="font-bold text-sm mb-1">Pandemic: Tracking Contagions from Cholera to Coronaviruses</h3>
+                                <p class="text-xs mb-2">By Dr. Sonia Shah</p>
+                                <div class="flex mb-2 book-rating text-xs">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <button class="w-full py-1 rounded-lg text-xs btn-primary">Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Book 3 -->
+                    <div class="card p-5">
+                        <div class="flex">
+                            <div class="w-1/3">
+                                <div class="bg-amber-700 rounded-lg h-32 flex items-center justify-center">
+                                    <i class="fas fa-robot text-2xl text-white"></i>
+                                </div>
+                            </div>
+                            <div class="w-2/3 pl-4">
+                                <h3 class="font-bold text-sm mb-1">Life 3.0: Being Human in the Age of Artificial Intelligence</h3>
+                                <p class="text-xs mb-2">By Max Tegmark</p>
+                                <div class="flex mb-2 book-rating text-xs">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <button class="w-full py-1 rounded-lg text-xs btn-primary">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reading Lists -->
+                <div class="mt-12">
+                    <h2 class="text-2xl font-bold mb-6">Curated Reading Lists</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Reading List 1 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-3">Quantum Physics Starter Pack</h3>
+                            <p class="mb-4">Essential reads for understanding the weird and wonderful world of quantum mechanics.</p>
+                            <ul class="mb-4">
+                                <li class="mb-2 text-sm">• The Elegant Universe - Brian Greene</li>
+                                <li class="mb-2 text-sm">• Quantum: Einstein, Bohr, and the Great Debate - Manjit Kumar</li>
+                                <li class="mb-2 text-sm">• Something Deeply Hidden - Sean Carroll</li>
+                                <li class="mb-2 text-sm">• QED - Richard Feynman</li>
+                                <li class="mb-2 text-sm">• The Quantum Universe - Brian Cox & Jeff Forshaw</li>
+                            </ul>
+                            <button class="btn-primary px-4 py-2 rounded-lg text-sm w-full">View Reading List</button>
+                        </div>
+
+                        <!-- Reading List 2 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-3">Space Exploration History</h3>
+                            <p class="mb-4">From the Space Race to modern private spaceflight, understand how humans reached for the stars.</p>
+                            <ul class="mb-4">
+                                <li class="mb-2 text-sm">• Carrying the Fire - Michael Collins</li>
+                                <li class="mb-2 text-sm">• The Right Stuff - Tom Wolfe</li>
+                                <li class="mb-2 text-sm">• Failure Is Not an Option - Gene Kranz</li>
+                                <li class="mb-2 text-sm">• Rocket Men - Robert Kurson</li>
+                                <li class="mb-2 text-sm">• Space Race - Deborah Cadbury</li>
+                            </ul>
+                            <button class="btn-primary px-4 py-2 rounded-lg text-sm w-full">View Reading List</button>
+                        </div>
+
+                        <!-- Reading List 3 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-bold mb-3">Science Communication Masterpieces</h3>
+                            <p class="mb-4">Brilliant books that make complex scientific ideas accessible to everyone.</p>
+                            <ul class="mb-4">
+                                <li class="mb-2 text-sm">• The Demon-Haunted World - Carl Sagan</li>
+                                <li class="mb-2 text-sm">• Brief Answers to the Big Questions - Stephen Hawking</li>
+                                <li class="mb-2 text-sm">• Surely You're Joking, Mr. Feynman! - Richard Feynman</li>
+                                <li class="mb-2 text-sm">• Sapiens - Yuval Noah Harari</li>
+                                <li class="mb-2 text-sm">• The Gene - Siddhartha Mukherjee</li>
+                            </ul>
+                            <button class="btn-primary px-4 py-2 rounded-lg text-sm w-full">View Reading List</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORUM PAGE SECTION -->
+    <section id="forum" class="page-section">
+        <div class="py-12">
+            <div class="container mx-auto px-4">
+                <h1 class="text-4xl font-bold mb-2">Scientific Forum</h1>
+                <p class="text-xl mb-8">Join discussions with scientists, enthusiasts, and curious minds</p>
+
+                <div class="md:flex gap-6">
+                    <!-- Forum Categories -->
+                    <div class="md:w-1/4 mb-6 md:mb-0">
+                        <div class="card p-4 mb-6">
+                            <h3 class="text-xl font-bold mb-4">Categories</h3>
+                            <ul>
+                                <li class="forum-category p-3 mb-1 rounded-lg cursor-pointer">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-rocket mr-3" style="color: var(--primary-color)"></i>
+                                            <span>Astrophysics</span>
+                                        </div>
+                                        <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--primary-color); color: white">86</span>
+                                    </div>
+                                </li>
+                                <li class="forum-category p-3 mb-1 rounded-lg cursor-pointer">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-atom mr-3" style="color: var(--primary-color)"></i>
+                                            <span>Quantum Physics</span>
+                                        </div>
+                                        <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--primary-color); color: white">52</span>
+                                    </div>
+                                </li>
+                                <li class="forum-category p-3 mb-1 rounded-lg cursor-pointer">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-dna mr-3" style="color: var(--primary-color)"></i>
+                                            <span>Genetics & Biology</span>
+                                        </div>
+                                        <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--primary-color); color: white">64</span>
+                                    </div>
+                                </li>
+                                <li class="forum-category p-3 mb-1 rounded-lg cursor-pointer">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-brain mr-3" style="color: var(--primary-color)"></i>
+                                            <span>Neuroscience</span>
+                                        </div>
+                                        <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--primary-color); color: white">38</span>
+                                    </div>
+                                </li>
+                                <li class="forum-category p-3 mb-1 rounded-lg cursor-pointer">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-robot mr-3" style="color: var(--primary-color)"></i>
+                                            <span>AI & Technology</span>
+                                        </div>
+                                        <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--primary-color); color: white">72</span>
+                                    </div>
+                                </li>
+                                <li class="forum-category p-3 mb-1 rounded-lg cursor-pointer">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-flask mr-3" style="color: var(--primary-color)"></i>
+                                            <span>Chemistry</span>
+                                        </div>
+                                        <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--primary-color); color: white">41</span>
+                                    </div>
+                                </li>
+                                <li class="forum-category p-3 mb-1 rounded-lg cursor-pointer">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-cloud-sun mr-3" style="color: var(--primary-color)"></i>
+                                            <span>Climate Science</span>
+                                        </div>
+                                        <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--primary-color); color: white">57</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card p-4">
+                            <h3 class="text-xl font-bold mb-4">Active Users</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="user-avatar">JD</div>
+                                <div class="user-avatar">MK</div>
+                                <div class="user-avatar">AL</div>
+                                <div class="user-avatar">RH</div>
+                                <div class="user-avatar">EW</div>
+                                <div class="user-avatar">SC</div>
+                                <div class="user-avatar">TS</div>
+                                <div class="user-avatar">NN</div>
+                                <div class="px-3 py-1 rounded-full text-xs" style="background-color: var(--border-color)">+23 more</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Forum Content -->
+                    <div class="md:w-3/4">
+                        <!-- Forum Controls -->
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="flex items-center">
+                                <span class="mr-2">Sort by:</span>
+                                <select class="px-3 py-2 rounded-lg" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">
+                                    <option>Recent Activity</option>
+                                    <option>Most Popular</option>
+                                    <option>Newest</option>
+                                    <option>Oldest</option>
+                                </select>
+                            </div>
+                            <button class="btn-primary px-4 py-2 rounded-lg">
+                                <i class="fas fa-plus mr-2"></i> New Topic
+                            </button>
+                        </div>
+
+                        <!-- Featured Discussion -->
+                        <div class="card p-6 mb-6 border-l-4" style="border-color: var(--accent-color);">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="tag" style="background-color: var(--accent-color)">Featured Discussion</span>
+                                <span class="text-sm">Pinned by Moderators</span>
+                            </div>
+                            <h2 class="text-2xl font-bold mb-2">The Webb Telescope's Discoveries: Changing Our Understanding of the Universe</h2>
+                            <p class="mb-4">Let's discuss how the new data from the James Webb Space Telescope is challenging our existing models of galactic formation and the early universe. What are the most surprising findings so far?</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="user-avatar mr-3">DR</div>
+                                    <div>
+                                        <p class="font-medium">Dr. Rachel Hudson</p>
+                                        <p class="text-sm opacity-70">Posted 3 days ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <div class="flex items-center">
+                                        <i class="far fa-eye mr-1"></i>
+                                        <span>1.2K</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="far fa-comment mr-1"></i>
+                                        <span>78</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="far fa-heart mr-1"></i>
+                                        <span>124</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Forum Discussions -->
+                        <div class="mb-8">
+                            <!-- Discussion 1 -->
+                            <div class="card p-6 mb-4 forum-post">
+                                <h3 class="text-xl font-bold mb-2">Dark Matter Alternatives: Are We Looking in the Wrong Direction?</h3>
+                                <p class="mb-4">Exploring Modified Newtonian Dynamics (MOND) and other alternatives to dark matter theory. Are these viable explanations for galactic rotation curves?</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="user-avatar mr-3">JP</div>
+                                        <div>
+                                            <p class="font-medium">JPhysics</p>
+                                            <p class="text-sm opacity-70">Posted 12 hours ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-4 text-sm">
+                                        <div class="flex items-center">
+                                            <i class="far fa-eye mr-1"></i>
+                                            <span>342</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="far fa-comment mr-1"></i>
+                                            <span>27</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="far fa-heart mr-1"></i>
+                                            <span>41</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Discussion 2 -->
+                            <div class="card p-6 mb-4 forum-post">
+                                <h3 class="text-xl font-bold mb-2">CRISPR Ethics: Where Should We Draw the Line?</h3>
+                                <p class="mb-4">With new advances in gene editing technology, how should we approach regulation and ethical boundaries? Is germline editing ever justified?</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="user-avatar mr-3">BT</div>
+                                        <div>
+                                            <p class="font-medium">BioThinker</p>
+                                            <p class="text-sm opacity-70">Posted 1 day ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-4 text-sm">
+                                        <div class="flex items-center">
+                                            <i class="far fa-eye mr-1"></i>
+                                            <span>452</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="far fa-comment mr-1"></i>
+                                            <span>35</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="far fa-heart mr-1"></i>
+                                            <span>63</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Discussion 3 -->
+                            <div class="card p-6 mb-4 forum-post">
+                                <h3 class="text-xl font-bold mb-2">The Potential of Quantum Computing: Reality vs. Hype</h3>
+                                <p class="mb-4">Current quantum computers are still in early stages. What practical applications can we expect in the next decade vs. what remains theoretical?</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="user-avatar mr-3">QC</div>
+                                        <div>
+                                            <p class="font-medium">QuantumCoder</p>
+                                            <p class="text-sm opacity-70">Posted 3 days ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-4 text-sm">
+                                        <div class="flex items-center">
+                                            <i class="far fa-eye mr-1"></i>
+                                            <span>687</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="far fa-comment mr-1"></i>
+                                            <span>52</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="far fa-heart mr-1"></i>
+                                            <span>94</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Discussion 4 -->
+                            <div class="card p-6 mb-4 forum-post">
+                                <h3 class="text-xl font-bold mb-2">Europa Mission: What We Hope to Find in the Ocean Moon</h3>
+                                <p class="mb-4">NASA's Europa Clipper mission will launch soon. What biosignatures should we look for, and what would constitute evidence for life?</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="user-avatar mr-3">AS</div>
+                                        <div>
+                                            <p class="font-medium">AstroSeeker</p>
+                                            <p class="text-sm opacity-70">Posted 4 days ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-4 text-sm">
+                                        <div class="flex items-center">
+                                            <i class="far fa-eye mr-1"></i>
+                                            <span>529</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="far fa-comment mr-1"></i>
+                                            <span>48</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="far fa-heart mr-1"></i>
+                                            <span>87</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sample Discussion Thread -->
+                        <div class="card p-6">
+                            <h2 class="text-2xl font-bold mb-6">The Possibility of Life on Europa</h2>
+
+                            <!-- Original Post -->
+                            <div class="mb-8 pb-6" style="border-bottom: 1px solid var(--border-color);">
+                                <div class="flex items-center mb-4">
+                                    <div class="user-avatar mr-3">AS</div>
+                                    <div>
+                                        <p class="font-medium">AstroSeeker</p>
+                                        <p class="text-sm opacity-70">Posted 4 days ago</p>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="mb-3">NASA's Europa Clipper mission is scheduled to launch in October 2024 and will arrive at Jupiter in 2030. It will conduct nearly 50 flybys of Europa, studying the moon's icy surface, subsurface ocean, and potential for life.</p>
+                                    <p class="mb-3">What kind of biosignatures should we be looking for? What would constitute compelling evidence of life? How can we distinguish between abiotic and biotic chemical signatures?</p>
+                                    <p>I'm particularly interested in the potential for hydrothermal vents on Europa's ocean floor and whether they could support chemosynthetic life similar to what we find in Earth's deep oceans.</p>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <button class="flex items-center">
+                                        <i class="far fa-heart mr-1"></i>
+                                        <span>87</span>
+                                    </button>
+                                    <button class="flex items-center">
+                                        <i class="far fa-comment mr-1"></i>
+                                        <span>48</span>
+                                    </button>
+                                    <button class="flex items-center">
+                                        <i class="fas fa-share-alt mr-1"></i>
+                                        <span>Share</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Comments/Replies -->
+                            <div class="space-y-6">
+                                <!-- Comment 1 -->
+                                <div class="pl-6 py-4 forum-post">
+                                    <div class="flex items-center mb-3">
+                                        <div class="user-avatar mr-3">DR</div>
+                                        <div>
+                                            <p class="font-medium">Dr. Rachel Hudson</p>
+                                            <p class="text-sm opacity-70">Astrobiologist • 4 days ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <p>Great topic! For biosignatures, we should look for molecular distributions that are difficult to explain without biological processes. On Earth, certain patterns in lipids, amino acids, and isotope ratios strongly indicate biological activity.</p>
+                                        <p class="mt-2">The challenge with Europa is that we'll mostly be analyzing the surface composition, which has been exposed to Jupiter's intense radiation. This radiation likely destroys most organic molecules on the surface. The Europa Clipper's mass spectrometer might detect material from recent cryovolcanic eruptions that brought subsurface material to the top.</p>
+                                    </div>
+                                    <div class="flex items-center space-x-4">
+                                        <button class="flex items-center">
+                                            <i class="far fa-heart mr-1"></i>
+                                            <span>42</span>
+                                        </button>
+                                        <button class="flex items-center">
+                                            <i class="far fa-comment mr-1"></i>
+                                            <span>Reply</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Comment 2 -->
+                                <div class="pl-6 py-4 forum-post">
+                                    <div class="flex items-center mb-3">
+                                        <div class="user-avatar mr-3">ML</div>
+                                        <div>
+                                            <p class="font-medium">MarsLover</p>
+                                            <p class="text-sm opacity-70">3 days ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <p>I'm skeptical about finding definitive evidence of life from orbit. At best, the Europa Clipper will help us determine if the chemical environment is conducive to life. We really need a lander that can sample the ice or, even better, a probe that can melt through the ice and explore the ocean directly.</p>
+                                        <p class="mt-2">That said, the detection of complex organics or certain gas combinations in plumes would be very exciting!</p>
+                                    </div>
+                                    <div class="flex items-center space-x-4">
+                                        <button class="flex items-center">
+                                            <i class="far fa-heart mr-1"></i>
+                                            <span>28</span>
+                                        </button>
+                                        <button class="flex items-center">
+                                            <i class="far fa-comment mr-1"></i>
+                                            <span>Reply</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Comment 3 with replies -->
+                                <div class="pl-6 py-4 forum-post">
+                                    <div class="flex items-center mb-3">
+                                        <div class="user-avatar mr-3">QC</div>
+                                        <div>
+                                            <p class="font-medium">QuantumCoder</p>
+                                            <p class="text-sm opacity-70">3 days ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <p>Regarding hydrothermal vents: there's good evidence that Europa's core is hot and geologically active. The tidal forces from Jupiter create significant heating. If there are hydrothermal vents, they could provide the energy and chemical gradients needed for chemosynthesis.</p>
+                                    </div>
+                                    <div class="flex items-center space-x-4 mb-4">
+                                        <button class="flex items-center">
+                                            <i class="far fa-heart mr-1"></i>
+                                            <span>35</span>
+                                        </button>
+                                        <button class="flex items-center">
+                                            <i class="far fa-comment mr-1"></i>
+                                            <span>Reply</span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Nested reply -->
+                                    <div class="pl-8 py-3 my-3" style="border-left: 2px solid var(--border-color);">
+                                        <div class="flex items-center mb-3">
+                                            <div class="user-avatar mr-3">BT</div>
+                                            <div>
+                                                <p class="font-medium">BioThinker</p>
+                                                <p class="text-sm opacity-70">2 days ago</p>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <p>Exactly! The vent systems found on Earth's ocean floor support entire ecosystems without any sunlight. The chemical energy from hydrogen sulfide and other compounds provides everything needed. If Europa has similar vents, it's one of our best hopes for finding extraterrestrial life in our solar system.</p>
+                                        </div>
+                                        <div class="flex items-center space-x-4">
+                                            <button class="flex items-center">
+                                                <i class="far fa-heart mr-1"></i>
+                                                <span>19</span>
+                                            </button>
+                                            <button class="flex items-center">
+                                                <i class="far fa-comment mr-1"></i>
+                                                <span>Reply</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Add Comment Box -->
+                                <div class="pl-6 pt-6">
+                                    <h4 class="font-medium mb-3">Join the discussion</h4>
+                                    <textarea class="w-full p-3 rounded-lg mb-3" rows="4" placeholder="Share your thoughts..." style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);"></textarea>
+                                    <div class="flex justify-end">
+                                        <button class="btn-primary px-6 py-2 rounded-lg">Post Comment</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROFILE PAGE SECTION -->
+    <section id="profile" class="page-section">
+        <div class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="card p-6 mb-8">
+                    <div class="md:flex">
+                        <div class="md:w-1/4 flex justify-center mb-6 md:mb-0">
+                            <div class="w-40 h-40 rounded-full flex items-center justify-center text-4xl font-bold" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); color: white;">JD</div>
+                        </div>
+                        <div class="md:w-3/4 md:pl-8">
+                            <h1 class="text-3xl font-bold mb-2">Dr. Jane Donovan</h1>
+                            <p class="text-lg mb-4" style="color: var(--primary-color);">Astrophysicist, Black Hole Researcher</p>
+                            <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+                            
+                            <div class="flex flex-wrap mb-6">
+                                <span class="px-3 py-1 rounded-full text-sm mr-2 mb-2" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">Black Holes</span>
+                                <span class="px-3 py-1 rounded-full text-sm mr-2 mb-2" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">Gravitational Waves</span>
+                                <span class="px-3 py-1 rounded-full text-sm mr-2 mb-2" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">Relativity</span>
+                                <span class="px-3 py-1 rounded-full text-sm mr-2 mb-2" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">Quantum Gravity</span>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-4">
+                                <div class="profile-stat">
+                                    <span class="text-2xl font-bold" style="color: var(--primary-color);">26</span>
+                                    <span class="text-sm">Articles</span>
+                                </div>
+                                <div class="profile-stat">
+                                    <span class="text-2xl font-bold" style="color: var(--primary-color);">142</span>
+                                    <span class="text-sm">Forum Posts</span>
+                                </div>
+                                <div class="profile-stat">
+                                    <span class="text-2xl font-bold" style="color: var(--primary-color);">1.2K</span>
+                                    <span class="text-sm">Followers</span>
+                                </div>
+                                <div class="profile-stat">
+                                    <span class="text-2xl font-bold" style="color: var(--primary-color);">4.9</span>
+                                    <span class="text-sm">Rating</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="mb-12">
+                    <h2 class="text-2xl font-bold mb-6">Recent Activity</h2>
+                    <div class="space-y-4">
+                        <!-- Activity 1 -->
+                        <div class="card p-5">
+                            <div class="flex items-center mb-3">
+                                <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: var(--primary-color); color: white;">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p>Posted an article</p>
+                                    <p class="text-sm opacity-70">2 days ago</p>
+                                </div>
+                            </div>
+                            <h3 class="font-bold mb-2">Black Holes: Gateways to Other Universes?</h3>
+                            <p class="text-sm mb-3">New research suggests that black holes might be more than just dead ends in spacetime, potentially connecting to other universes...</p>
+                            <div class="flex items-center text-sm">
+                                <div class="flex items-center mr-4">
+                                    <i class="far fa-eye mr-1"></i>
+                                    <span>847</span>
+                                </div>
+                                <div class="flex items-center mr-4">
+                                    <i class="far fa-comment mr-1"></i>
+                                    <span>36</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="far fa-heart mr-1"></i>
+                                    <span>124</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Activity 2 -->
+                        <div class="card p-5">
+                            <div class="flex items-center mb-3">
+                                <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: var(--secondary-color); color: white;">
+                                    <i class="far fa-comment"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p>Replied to discussion</p>
+                                    <p class="text-sm opacity-70">3 days ago</p>
+                                </div>
+                            </div>
+                            <h3 class="font-bold mb-2">Re: The Webb Telescope's Discoveries</h3>
+                            <p class="text-sm">The data on ultra-distant galaxies is particularly surprising. Their structure and mass distribution doesn't match our current models for early galactic formation. One possibility is that dark matter behaved differently in the early universe...</p>
+                        </div>
+
+                        <!-- Activity 3 -->
+                        <div class="card p-5">
+                            <div class="flex items-center mb-3">
+                                <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: var(--accent-color); color: white;">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p>Added book to reading list</p>
+                                    <p class="text-sm opacity-70">5 days ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-12 h-16 bg-indigo-900 flex items-center justify-center rounded mr-3">
+                                    <i class="fas fa-book text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold">Quantum Universe: The Quest for a Theory of Everything</h3>
+                                    <p class="text-sm">By Dr. Brian Greene</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Publications -->
+                <div class="mb-12">
+                    <h2 class="text-2xl font-bold mb-6">Publications</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Publication 1 -->
+                        <div class="card p-5">
+                            <h3 class="font-bold mb-1">Observational Evidence for Quantum Gravity Effects Near Black Hole Event Horizons</h3>
+                            <p class="text-sm mb-2">Journal of Astrophysics, Vol. 128, pp. 234-256 (2023)</p>
+                            <p class="text-sm mb-3">This paper presents new data from the Event Horizon Telescope suggesting quantum effects may be observable at the boundary of supermassive black holes.</p>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">Black Holes</span>
+                                <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">Quantum Gravity</span>
+                                <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">EHT</span>
+                            </div>
+                            <button class="px-4 py-1 rounded text-sm btn-primary">View Publication</button>
+                        </div>
+
+                        <!-- Publication 2 -->
+                        <div class="card p-5">
+                            <h3 class="font-bold mb-1">Hawking Radiation Detection Methods for Primordial Black Holes</h3>
+                            <p class="text-sm mb-2">Physical Review D, Vol. 92, Issue 6 (2022)</p>
+                            <p class="text-sm mb-3">This study proposes new detection methods for the elusive Hawking radiation from microscopic primordial black holes formed in the early universe.</p>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">Hawking Radiation</span>
+                                <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">Primordial Black Holes</span>
+                            </div>
+                            <button class="px-4 py-1 rounded text-sm btn-primary">View Publication</button>
+                        </div>
+
+                        <!-- Publication 3 -->
+                        <div class="card p-5">
+                            <h3 class="font-bold mb-1">Gravitational Wave Echoes as Probes of Quantum Black Hole Structure</h3>
+                            <p class="text-sm mb-2">Nature Astronomy, Vol. 5, pp. 177-194 (2022)</p>
+                            <p class="text-sm mb-3">Analysis of gravitational wave data from black hole mergers reveals potential "echoes" that may indicate quantum structure near the event horizon.</p>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">Gravitational Waves</span>
+                                <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">LIGO</span>
+                            </div>
+                            <button class="px-4 py-1 rounded text-sm btn-primary">View Publication</button>
+                        </div>
+
+                        <!-- Publication 4 -->
+                        <div class="card p-5">
+                            <h3 class="font-bold mb-1">Reconciling General Relativity and Quantum Mechanics: A Loop Quantum Gravity Approach</h3>
+                            <p class="text-sm mb-2">Reviews of Modern Physics, Vol. 94 (2021)</p>
+                            <p class="text-sm mb-3">This review paper examines recent progress in loop quantum gravity as a potential solution to the incompatibility between general relativity and quantum mechanics.</p>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">Loop Quantum Gravity</span>
+                                <span class="px-2 py-1 rounded-full text-xs" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">Quantum Gravity</span>
+                            </div>
+                            <button class="px-4 py-1 rounded text-sm btn-primary">View Publication</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reading List -->
+                <div class="mb-12">
+                    <h2 class="text-2xl font-bold mb-6">Reading List</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="card p-3 flex items-center">
+                            <div class="w-12 h-16 bg-blue-900 flex items-center justify-center rounded mr-3">
+                                <i class="fas fa-atom text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-sm">Quantum Universe</h4>
+                                <p class="text-xs opacity-70">Dr. Brian Greene</p>
+                            </div>
+                        </div>
+                        <div class="card p-3 flex items-center">
+                            <div class="w-12 h-16 bg-purple-900 flex items-center justify-center rounded mr-3">
+                                <i class="fas fa-rocket text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-sm">The Future of Humanity</h4>
+                                <p class="text-xs opacity-70">Michio Kaku</p>
+                            </div>
+                        </div>
+                        <div class="card p-3 flex items-center">
+                            <div class="w-12 h-16 bg-red-900 flex items-center justify-center rounded mr-3">
+                                <i class="fas fa-brain text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-sm">Consciousness Explained</h4>
+                                <p class="text-xs opacity-70">Daniel Dennett</p>
+                            </div>
+                        </div>
+                        <div class="card p-3 flex items-center">
+                            <div class="w-12 h-16 bg-green-900 flex items-center justify-center rounded mr-3">
+                                <i class="fas fa-globe text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-sm">The Planet Remade</h4>
+                                <p class="text-xs opacity-70">Oliver Morton</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Events -->
+                <div>
+                    <h2 class="text-2xl font-bold mb-6">Events Attending</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="card p-5 flex">
+                            <div class="event-date mr-4">
+                                <span class="text-xs">NOV</span>
+                                <span class="text-2xl font-bold">14</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-1">International Conference on Black Hole Physics</h3>
+                                <p class="text-sm mb-2">California Institute of Technology, Pasadena, CA</p>
+                                <p class="text-xs opacity-70">Speaking: "New Frontiers in Black Hole Thermodynamics"</p>
+                            </div>
+                        </div>
+                        <div class="card p-5 flex">
+                            <div class="event-date mr-4">
+                                <span class="text-xs">DEC</span>
+                                <span class="text-2xl font-bold">05</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-1">Quantum Gravity Workshop</h3>
+                                <p class="text-sm mb-2">Max Planck Institute, Potsdam, Germany</p>
+                                <p class="text-xs opacity-70">Panel Discussion: "Bridging QM and GR"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT PAGE SECTION -->
+    <section id="about" class="page-section">
+        <div class="py-12">
+            <div class="container mx-auto px-4">
+                <h1 class="text-4xl font-bold mb-2">About Cosmic Horizons</h1>
+                <p class="text-xl mb-8">Our mission, community, and the science that drives us</p>
+
+                <!-- Mission -->
+                <div class="card p-6 mb-12">
+                    <h2 class="text-2xl font-bold mb-4">Our Mission</h2>
+                    <div class="md:flex">
+                        <div class="md:w-2/3 md:pr-6 mb-6 md:mb-0">
+                            <p class="mb-4">Cosmic Horizons was founded in 2021 with a single purpose: to create a community where scientific curiosity thrives without barriers. We believe that understanding the universe—from quantum scales to cosmic structures—should be accessible to everyone passionate about discovery.</p>
+                            <p class="mb-4">Our platform brings together professional scientists, dedicated enthusiasts, educators, and curious minds in a collaborative environment. We're committed to fostering thoughtful discussion, sharing rigorous scientific research, and exploring the frontiers of human knowledge.</p>
+                            <p>We strive to maintain the highest standards of scientific integrity while making complex concepts accessible. Whether you're a PhD researcher or simply someone fascinated by the cosmos, Cosmic Horizons is your home for exploration.</p>
+                        </div>
+                        <div class="md:w-1/3 flex items-center justify-center">
+                            <div class="w-48 h-48 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));">
+                                <i class="fas fa-rocket text-6xl text-white transform rotate-45"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team -->
+                <div class="mb-12">
+                    <h2 class="text-2xl font-bold mb-6">Our Team</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Team Member 1 -->
+                        <div class="card p-6 text-center">
+                            <div class="w-24 h-24 mx-auto rounded-full mb-4 flex items-center justify-center text-2xl font-bold" style="background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); color: white;">AL</div>
+                            <h3 class="text-xl font-bold mb-1">Dr. Alexei Leonov</h3>
+                            <p class="text-sm mb-3" style="color: var(--primary-color);">Founder & Chief Scientist</p>
+                            <p class="text-sm mb-3">Former NASA astrophysicist with a passion for making complex scientific concepts accessible to everyone.</p>
+                            <div class="flex justify-center space-x-3">
+                                <a href="#" class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+                                    <i class="fas fa-globe"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Team Member 2 -->
+                        <div class="card p-6 text-center">
+                            <div class="w-24 h-24 mx-auto rounded-full mb-4 flex items-center justify-center text-2xl font-bold" style="background: linear-gradient(45deg, var(--secondary-color), var(--accent-color)); color: white;">SS</div>
+                            <h3 class="text-xl font-bold mb-1">Prof. Sarah Singh</h3>
+                            <p class="text-sm mb-3" style="color: var(--primary-color);">Content Director</p>
+                            <p class="text-sm mb-3">Quantum physicist and science communicator specializing in making cutting-edge research understandable.</p>
+                            <div class="flex justify-center space-x-3">
+                                <a href="#" class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+                                    <i class="fas fa-globe"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Team Member 3 -->
+                        <div class="card p-6 text-center">
+                            <div class="w-24 h-24 mx-auto rounded-full mb-4 flex items-center justify-center text-2xl font-bold" style="background: linear-gradient(45deg, var(--accent-color), var(--primary-color)); color: white;">MK</div>
+                            <h3 class="text-xl font-bold mb-1">Dr. Marcus Kim</h3>
+                            <p class="text-sm mb-3" style="color: var(--primary-color);">Community Manager</p>
+                            <p class="text-sm mb-3">Astrobiologist with expertise in fostering scientific collaboration and engaging discussions.</p>
+                            <div class="flex justify-center space-x-3">
+                                <a href="#" class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+                                    <i class="fas fa-globe"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Stats -->
+                <div class="card p-6 mb-12">
+                    <h2 class="text-2xl font-bold mb-6">Our Growing Community</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                        <div>
+                            <div class="text-5xl font-bold mb-2" style="color: var(--primary-color)">12,450+</div>
+                            <p class="text-lg">Community Members</p>
+                        </div>
+                        <div>
+                            <div class="text-5xl font-bold mb-2" style="color: var(--secondary-color)">125</div>
+                            <p class="text-lg">Scientific Contributors</p>
+                        </div>
+                        <div>
+                            <div class="text-5xl font-bold mb-2" style="color: var(--accent-color)">5,280</div>
+                            <p class="text-lg">Discussion Threads</p>
+                        </div>
+                        <div>
+                            <div class="text-5xl font-bold mb-2" style="color: var(--primary-color)">42</div>
+                            <p class="text-lg">Countries Represented</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Our Values -->
+                <div class="mb-12">
+                    <h2 class="text-2xl font-bold mb-6">Our Values</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="card p-6">
+                            <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4" style="background-color: var(--primary-color);">
+                                <i class="fas fa-search text-2xl text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Scientific Integrity</h3>
+                            <p>We uphold the highest standards of scientific rigor. All content is thoroughly researched, properly cited, and updated as new evidence emerges.</p>
+                        </div>
+                        <div class="card p-6">
+                            <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4" style="background-color: var(--secondary-color);">
+                                <i class="fas fa-users text-2xl text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Inclusive Curiosity</h3>
+                            <p>Science is for everyone. We foster an environment where questions are welcomed, jargon is explained, and complex concepts are made accessible to all.</p>
+                        </div>
+                        <div class="card p-6">
+                            <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4" style="background-color: var(--accent-color);">
+                                <i class="fas fa-lightbulb text-2xl text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Open Exploration</h3>
+                            <p>We embrace the frontiers of knowledge, including speculative but scientifically grounded ideas that push the boundaries of our understanding.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQs -->
+                <div class="mb-12">
+                    <h2 class="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+                    <div class="space-y-4">
+                        <div class="card p-5">
+                            <h3 class="font-bold mb-2">How can I contribute to Cosmic Horizons?</h3>
+                            <p>We welcome contributions from scientists, educators, and enthusiasts. You can submit articles for review, participate in forum discussions, or apply to become a regular contributor. See our Contribution Guidelines for more information.</p>
+                        </div>
+                        <div class="card p-5">
+                            <h3 class="font-bold mb-2">Is Cosmic Horizons affiliated with any research institutions?</h3>
+                            <p>While many of our contributors are affiliated with universities and research organizations, Cosmic Horizons itself is an independent platform. We maintain partnerships with several institutions for content review and educational initiatives.</p>
+                        </div>
+                        <div class="card p-5">
+                            <h3 class="font-bold mb-2">How do you ensure scientific accuracy?</h3>
+                            <p>All articles are reviewed by experts in the relevant field before publication. Our forum is moderated by knowledgeable community members, and we have a process for flagging and correcting inaccurate information.</p>
+                        </div>
+                        <div class="card p-5">
+                            <h3 class="font-bold mb-2">Can I use Cosmic Horizons content for educational purposes?</h3>
+                            <p>Yes! Our content is available under Creative Commons Attribution-NonCommercial license, meaning you can use it for educational purposes with proper attribution. Commercial use requires explicit permission.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact -->
+                <div class="card p-6">
+                    <h2 class="text-2xl font-bold mb-4">Get In Touch</h2>
+                    <div class="md:flex gap-8">
+                        <div class="md:w-1/2 mb-6 md:mb-0">
+                            <p class="mb-6">Have questions, suggestions, or just want to say hello? We'd love to hear from you!</p>
+                            
+                            <div class="flex items-center mb-4">
+                                <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background-color: var(--primary-color);">
+                                    <i class="fas fa-envelope text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Email Us</p>
+                                    <p class="text-sm">contact@cosmichorizons.org</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center mb-4">
+                                <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background-color: var(--secondary-color);">
+                                    <i class="fas fa-map-marker-alt text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Main Office</p>
+                                    <p class="text-sm">123 Science Way, Cambridge, MA 02142</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background-color: var(--accent-color);">
+                                    <i class="fas fa-phone text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Call Us</p>
+                                    <p class="text-sm">+1 (555) 123-4567</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2">
+                            <form>
+                                <div class="mb-4">
+                                    <label class="block mb-2 font-medium">Your Name</label>
+                                    <input type="text" class="w-full px-4 py-2 rounded-lg" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block mb-2 font-medium">Your Email</label>
+                                    <input type="email" class="w-full px-4 py-2 rounded-lg" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block mb-2 font-medium">Subject</label>
+                                    <input type="text" class="w-full px-4 py-2 rounded-lg" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block mb-2 font-medium">Message</label>
+                                    <textarea rows="4" class="w-full px-4 py-2 rounded-lg" style="background-color: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color);"></textarea>
+                                </div>
+                                <button type="submit" class="btn-primary px-6 py-3 rounded-lg font-medium">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="md:flex justify-between">
+                <div class="mb-8 md:mb-0">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-globe-americas text-3xl mr-2" style="color: var(--primary-color)"></i>
+                        <h2 class="text-2xl font-bold">Cosmic Horizons</h2>
+                    </div>
+                    <p class="mb-4 max-w-md">Exploring the frontiers of science through community, curiosity, and rigorous research. Join us on a journey beyond the boundaries of current knowledge.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: var(--primary-color);">
+                            <i class="fab fa-twitter text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: var(--primary-color);">
+                            <i class="fab fa-facebook-f text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: var(--primary-color);">
+                            <i class="fab fa-instagram text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: var(--primary-color);">
+                            <i class="fab fa-youtube text-white"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-lg font-bold mb-4">Navigation</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="hover:text-blue-400 transition">Home</a></li>
+                            <li><a href="#" class="hover:text-blue-400 transition">Articles</a></li>
+                            <li><a href="#" class="hover:text-blue-400 transition">Scientific Books</a></li>
+                            <li><a href="#" class="hover:text-blue-400 transition">Forum</a></li>
+                            <li><a href="#" class="hover:text-blue-400 transition">About</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-4">Resources</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="hover:text-blue-400 transition">Research Papers</a></li>
+                            <li><a href="#" class="hover:text-blue-400 transition">Book Reviews</a></li>
+                            <li><a href="#" class="hover:text-blue-400 transition">Scientific Events</a></li>
+                            <li><a href="#" class="hover:text-blue-400 transition">Learning Paths</a></li>
+                            <li><a href="#" class="hover:text-blue-400 transition">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-4">Legal</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="hover:text-blue-400 transition">Terms of Service</a></li>
+                            <li><a href="#" class="hover:text-blue-400 transition">Privacy Policy</a></li>
+                            <li><a href="#" class="hover:text-blue-400 transition">Cookie Policy</a></li>
+                            <li><a href="#" class="hover:text-blue-400 transition">Content Guidelines</a></li>
+                            <li><a href="#" class="hover:text-blue-400 transition">DMCA</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-6 border-t border-gray-700 text-center">
+                <p>© 2023 Cosmic Horizons. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize star field animation for hero section
+        function createStars() {
+            const starField = document.getElementById('starField');
+            if (!starField) return;
+            
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random position
+                const top = Math.random() * 100;
+                const left = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 3;
+                
+                // Random animation delay
+                const delay = Math.random() * 3;
+                
+                star.style.top = `${top}%`;
+                star.style.left = `${left}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDelay = `${delay}s`;
+                
+                starField.appendChild(star);
+            }
+        }
+        
+        // Handle navigation
+        function setupNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    const targetPage = this.getAttribute('data-page');
+                    
+                    // Hide all pages
+                    document.querySelectorAll('.page-section').forEach(section => {
+                        section.classList.remove('active-section');
+                    });
+                    
+                    // Show target page
+                    document.getElementById(targetPage).classList.add('active-section');
+                    
+                    // Update active link
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                });
+            });
+        }
+        
+        // Handle theme toggle
+        function setupThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            // Check for saved theme preference
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            
+            // Apply initial theme
+            if (isDarkMode) {
+                body.classList.add('dark-mode');
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                
+                // Save preference
+                const isDark = body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDark);
+                
+                // Update toggle icon
+                const toggleIcon = this.querySelector('i');
+                if (isDark) {
+                    toggleIcon.className = 'fas fa-sun';
+                } else {
+                    toggleIcon.className = 'fas fa-moon';
+                }
+            });
+            
+            // Set initial icon based on theme
+            const toggleIcon = themeToggle.querySelector('i');
+            if (isDarkMode) {
+                toggleIcon.className = 'fas fa-sun';
+            } else {
+                toggleIcon.className = 'fas fa-moon';
+            }
+        }
+        
+        // Initialize fade-in animations
+        function setupAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.card, h2, .grid').forEach(element => {
+                observer.observe(element);
+            });
+        }
+        
+        // Initialize all functions on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            setupNavigation();
+            setupThemeToggle();
+            setupAnimations();
+        });
+    </script>
+</body>
+</html>
